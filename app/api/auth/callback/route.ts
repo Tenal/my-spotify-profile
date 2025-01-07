@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
 
 // interface ITokenData {
 //     access_token: string
@@ -53,8 +54,24 @@ export async function GET(request: Request) {
 
         const tokenData = await response.json()
 
-        // TODO: update below to Store tokens in cookies or session for user to use the Spotify API
-        return NextResponse.json({ tokenData })
+        // store tokens in cookies
+        const nextCookies = await cookies()
+        nextCookies.set("spotify_access_token", tokenData.access_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            path: "/",
+            maxAge: tokenData.expires_in,
+        })
+        if (tokenData.refresh_token) {
+            nextCookies.set("spotify_refresh_token", tokenData.refresh_token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                path: "/",
+                maxAge: tokenData.expires_in,
+            })
+        }
+
+        return NextResponse.redirect(new URL("/", request.url))
     } catch (error) {
         console.error("Error exchanging code for token:", error)
         return NextResponse.json(
