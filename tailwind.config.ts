@@ -64,6 +64,9 @@ const config: Config = {
                 "background-hover": "hsl(var(--background-hover))",
                 "background-active": "hsl(var(--background-active) ",
             },
+            screens: {
+                xs: "400px",
+            },
         },
     },
     plugins: [tailwindcssAnimate],

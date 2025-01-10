@@ -5,9 +5,13 @@ import { RANGE_OPTIONS } from "@/lib/constants"
 
 interface ITimeRangeLinksProps {
     currentRange: string
+    currentPage: string
 }
 
-export function TimeRangeLinks({ currentRange }: ITimeRangeLinksProps) {
+export function TimeRangeLinks({
+    currentRange,
+    currentPage,
+}: ITimeRangeLinksProps) {
     return (
         <div className="flex gap-1 sm:gap-3 justify-center sm:justify-end">
             {RANGE_OPTIONS.map(({ label, value }) => {
@@ -15,7 +19,7 @@ export function TimeRangeLinks({ currentRange }: ITimeRangeLinksProps) {
                 return (
                     <Link
                         key={value}
-                        href={`/artists?range=${value}`}
+                        href={`/${currentPage}?range=${value}`}
                         className={cn(
                             "px-3 py-2 rounded transition-colors duration-300 font-bold",
                             "text-xs sm:text-sm md:text-lg min-w-[90px] text-center whitespace-nowrap",

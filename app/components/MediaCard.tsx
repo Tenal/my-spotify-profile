@@ -57,6 +57,7 @@ export function MediaCard({
                     "border-none"
                 )}
             >
+                {/* artist image & play button */}
                 <div className="relative w-full aspect-square">
                     <Avatar className="w-full h-full">
                         <AvatarImage
@@ -99,7 +100,7 @@ export function MediaCard({
                                     transition:
                                         "opacity 300ms, transform 200ms",
                                 }}
-                                aria-label={`Play ${name}`}
+                                aria-label={`Play ${name} on Spotify`}
                             >
                                 <svg
                                     className="w-5 h-5"
@@ -125,6 +126,8 @@ export function MediaCard({
                         </TooltipContent>
                     </Tooltip>
                 </div>
+
+                {/* artist name & media type */}
                 <div className="mt-3 flex flex-col items-start text-left gap-1">
                     <span className="font-normal leading-tight">
                         <Link

@@ -1,29 +1,9 @@
 import { cookies } from "next/headers"
 import { spotifyFetch } from "@/lib/spotify"
+import { getSpotifyTimeRange } from "@/lib/generalFunctions"
+import { IArtist } from "@/lib/typescript"
 import { TimeRangeLinks } from "@/components/TimeRangeLinks"
 import { MediaCard } from "@/components/MediaCard"
-
-function getSpotifyTimeRange(
-    range: string
-): "long_term" | "medium_term" | "short_term" {
-    switch (range) {
-        case "all-time":
-            return "long_term"
-        case "4-weeks":
-            return "short_term"
-        case "6-months":
-        default:
-            return "long_term"
-    }
-}
-
-interface IArtist {
-    id: string
-    name: string
-    images: { url: string }[]
-    type: "artist"
-    [key: string]: unknown
-}
 
 export default async function TopArtistsPage({
     searchParams,
@@ -54,7 +34,10 @@ export default async function TopArtistsPage({
         <div className="p-4">
             <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
                 <h2 className="mb-4 sm:mb-0">Top Artists</h2>
-                <TimeRangeLinks currentRange={userRange} />
+                <TimeRangeLinks
+                    currentRange={userRange}
+                    currentPage="artists"
+                />
             </div>
 
             <div className="fluid-grid mt-4">
@@ -65,7 +48,7 @@ export default async function TopArtistsPage({
                             name={artist.name}
                             mediaType={artist.type}
                             link="/"
-                            spotifyLink="/"
+                            spotifyLink={artist.uri}
                             imageSrc={artist.images?.[0]?.url}
                         />
                     ))
