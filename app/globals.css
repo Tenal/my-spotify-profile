@@ -52,6 +52,7 @@
         /* ----- background HSL tokens ----- */
         --background: 0, 0%, 7%; /* #121212 */
         --background-hover: 0, 0%, 12%; /* #1f1f1f */
+        --background-hover-light: 0, 0%, 15%;
         --background-active: 0, 0%, 0%; /* #000000 */
         /* ----- text/icon HSL tokens ----- */
         --foreground: 0 0% 100%; /* #ffffff */

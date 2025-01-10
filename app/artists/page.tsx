@@ -2,7 +2,7 @@ import { cookies } from "next/headers"
 import { spotifyFetch } from "@/lib/spotify"
 import { getSpotifyTimeRange } from "@/lib/generalFunctions"
 import { IArtist } from "@/lib/typescript"
-import { TimeRangeLinks } from "@/components/TimeRangeLinks"
+import { TimeRangeSelect } from "@/components/TimeRangeSelect"
 import { MediaCard } from "@/components/MediaCard"
 
 export default async function TopArtistsPage({
@@ -34,10 +34,7 @@ export default async function TopArtistsPage({
         <div className="p-4">
             <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
                 <h2 className="mb-4 sm:mb-0">Top Artists</h2>
-                <TimeRangeLinks
-                    currentRange={userRange}
-                    currentPage="artists"
-                />
+                <TimeRangeSelect currentRange={userRange} />
             </div>
 
             <div className="fluid-grid mt-4">

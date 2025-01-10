@@ -2,7 +2,7 @@ import { cookies } from "next/headers"
 import { spotifyFetch } from "@/lib/spotify"
 import { getSpotifyTimeRange } from "@/lib/generalFunctions"
 import { ITrack } from "@/lib/typescript"
-import { TimeRangeLinks } from "@/components/TimeRangeLinks"
+import { TimeRangeSelect } from "@/components/TimeRangeSelect"
 import { SongRow } from "@/components/SongRow"
 import { SongRowHeader } from "@/components/SongRowHeader"
 
@@ -35,7 +35,7 @@ export default async function TopTracksPage({
         <div className="p-4">
             <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
                 <h2 className="mb-4 sm:mb-0">Top Tracks</h2>
-                <TimeRangeLinks currentRange={userRange} currentPage="tracks" />
+                <TimeRangeSelect currentRange={userRange} />
             </div>
 
             <SongRowHeader />
