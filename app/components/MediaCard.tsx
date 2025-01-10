@@ -17,9 +17,10 @@ import {
 interface IMediaCardProps {
     imageSrc?: string
     name: string
-    mediaType: "artist" | "playlist"
+    mediaType: string
     link: string
     spotifyLink: string
+    squareAvatar?: boolean
 }
 
 export function MediaCard({
@@ -28,12 +29,14 @@ export function MediaCard({
     mediaType,
     link,
     spotifyLink,
+    squareAvatar,
 }: IMediaCardProps) {
     const router = useRouter()
 
     const fallbackInitials = name
         .split(" ")
         .map((n) => n[0]?.toUpperCase())
+        .splice(0, 2)
         .join("")
 
     const handleCardClick = () => {
@@ -54,24 +57,30 @@ export function MediaCard({
                     "card-fluid",
                     "group relative  cursor-pointer overflow-hidden p-[12px]",
                     "hover-bg-base text-base-default rounded-md transition-colors duration-100",
-                    "border-none"
+                    "border-none mb-6"
                 )}
             >
                 {/* artist image & play button */}
                 <div className="relative w-full aspect-square">
-                    <Avatar className="w-full h-full">
+                    <Avatar
+                        className={cn(
+                            "w-full h-full",
+                            squareAvatar ? "rounded-md" : "rounded-full"
+                        )}
+                    >
                         <AvatarImage
                             src={imageSrc}
                             alt={name}
                             className="object-cover w-full h-full"
                         />
                         <AvatarFallback
-                            className="
-                                flex items-center justify-center
-                                w-full h-full
-                                text-4xl font-bold
-                                bg-[hsl(var(--background-hover))] text-[hsl(var(--secondary))]
-                            "
+                            className={cn(
+                                "flex items-center justify-center",
+                                "w-full h-full",
+                                "text-4xl font-bold",
+                                "bg-[hsl(var(--background-hover))] text-[hsl(var(--secondary))]",
+                                squareAvatar ? "rounded-md" : "rounded-full"
+                            )}
                         >
                             {fallbackInitials}
                         </AvatarFallback>
@@ -84,7 +93,7 @@ export function MediaCard({
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                                 className="
-                                    absolute bottom-1 right-2
+                                    absolute bottom-2 right-2
                                     rounded-full
                                     bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))]
                                     p-3

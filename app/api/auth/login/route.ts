@@ -10,6 +10,7 @@ export async function GET() {
         "playlist-read-collaborative",
         "user-follow-read",
         "user-read-recently-played",
+        "playlist-read-private",
     ]
 
     // Spotify auth URL
