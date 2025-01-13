@@ -29,50 +29,55 @@ export default async function RecentTracksPage() {
     ] as IRecentTrack[] // spotify's recently-played endpoint returns duplicate tracks
 
     return (
-        <div className="p-4">
-            <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
-                <h1 className="mb-4 sm:mb-2 text-center">
-                    Recently Played Tracks
-                </h1>
-            </div>
+        <div className="view-spacing">
+            <div className="p-4">
+                <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
+                    <h1 className="mb-4 sm:mb-2 text-center">
+                        Recently Played Tracks
+                    </h1>
+                </div>
 
-            <SongRowHeader />
-            <div className="mt-4 w-full">
-                {uniqueTracks.length ? (
-                    uniqueTracks.map((item: IRecentTrack, index: number) => {
-                        const { track } = item
-                        const {
-                            name,
-                            artists,
-                            album,
-                            duration_ms,
-                            explicit,
-                            uri,
-                        } = track
+                <SongRowHeader />
+                <div className="mt-4 w-full">
+                    {uniqueTracks.length ? (
+                        uniqueTracks.map(
+                            (item: IRecentTrack, index: number) => {
+                                const { track } = item
+                                const {
+                                    name,
+                                    artists,
+                                    album,
+                                    duration_ms,
+                                    explicit,
+                                    uri,
+                                } = track
 
-                        const artistName = artists[0]?.name || "Unknown Artist"
-                        const albumName = album?.name || "Unknown Album"
-                        const albumImage = album?.images?.[0]?.url || ""
-                        const spotifyLink = uri || "/"
+                                const artistName =
+                                    artists[0]?.name || "Unknown Artist"
+                                const albumName = album?.name || "Unknown Album"
+                                const albumImage = album?.images?.[0]?.url || ""
+                                const spotifyLink = uri || "/"
 
-                        return (
-                            <SongRow
-                                key={track.id}
-                                name={name}
-                                artist={artistName}
-                                album={albumName}
-                                songLength={duration_ms}
-                                explicit={explicit}
-                                artistLink="/"
-                                spotifyLink={spotifyLink}
-                                imageSrc={albumImage}
-                                index={index}
-                            />
+                                return (
+                                    <SongRow
+                                        key={track.id}
+                                        name={name}
+                                        artist={artistName}
+                                        album={albumName}
+                                        songLength={duration_ms}
+                                        explicit={explicit}
+                                        artistLink="/"
+                                        spotifyLink={spotifyLink}
+                                        imageSrc={albumImage}
+                                        index={index}
+                                    />
+                                )
+                            }
                         )
-                    })
-                ) : (
-                    <p>No recently played tracks found.</p>
-                )}
+                    ) : (
+                        <p>No recently played tracks found.</p>
+                    )}
+                </div>
             </div>
         </div>
     )

@@ -33,32 +33,34 @@ export default async function TopTracksPage({
     )
 
     return (
-        <div className="p-4">
-            <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
-                <h1 className="mb-4 sm:mb-2">Top Tracks</h1>
-                <TimeRangeSelect currentRange={userRange} />
-            </div>
+        <div className="view-spacing">
+            <div className="p-4">
+                <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
+                    <h1 className="mb-4 sm:mb-2">Top Tracks</h1>
+                    <TimeRangeSelect currentRange={userRange} />
+                </div>
 
-            <SongRowHeader />
-            <div className="mt-4 w-full">
-                {tracks.items?.length ? (
-                    tracks.items.map((track: ITrack, index: number) => (
-                        <SongRow
-                            key={track.id}
-                            name={track.name}
-                            artist={track.artists[0].name}
-                            album={track.album.name}
-                            songLength={track.duration_ms}
-                            explicit={track.explicit}
-                            artistLink="/"
-                            spotifyLink={track.uri ?? "/"}
-                            imageSrc={track.album.images?.[0]?.url}
-                            index={index}
-                        />
-                    ))
-                ) : (
-                    <p>No tracks found for specified time range.</p>
-                )}
+                <SongRowHeader />
+                <div className="mt-4 w-full">
+                    {tracks.items?.length ? (
+                        tracks.items.map((track: ITrack, index: number) => (
+                            <SongRow
+                                key={track.id}
+                                name={track.name}
+                                artist={track.artists[0].name}
+                                album={track.album.name}
+                                songLength={track.duration_ms}
+                                explicit={track.explicit}
+                                artistLink="/"
+                                spotifyLink={track.uri ?? "/"}
+                                imageSrc={track.album.images?.[0]?.url}
+                                index={index}
+                            />
+                        ))
+                    ) : (
+                        <p>No tracks found for specified time range.</p>
+                    )}
+                </div>
             </div>
         </div>
     )

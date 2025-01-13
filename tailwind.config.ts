@@ -4,7 +4,15 @@ import tailwindcssAnimate from "tailwindcss-animate"
 const config: Config = {
     darkMode: ["class"],
     content: ["./app/**/*.{js,ts,jsx,tsx,mdx}"],
+    safelist: [
+        {
+            pattern: /^mb-\d+$/, // note: explicitly SL bc Tailwind’s JIT compiler only detects statically known class names
+        },
+    ],
     theme: {
+        container: {
+            center: true,
+        },
         extend: {
             fontFamily: {
                 primary: [

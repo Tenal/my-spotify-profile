@@ -21,6 +21,7 @@ interface IMediaCardProps {
     link: string
     spotifyLink: string
     squareAvatar?: boolean
+    mb?: number
 }
 
 export function MediaCard({
@@ -30,6 +31,7 @@ export function MediaCard({
     link,
     spotifyLink,
     squareAvatar,
+    mb,
 }: IMediaCardProps) {
     const router = useRouter()
 
@@ -49,6 +51,8 @@ export function MediaCard({
         e.stopPropagation()
     }
 
+    console.log(mb)
+
     return (
         <TooltipProvider>
             <Card
@@ -56,8 +60,9 @@ export function MediaCard({
                 className={cn(
                     "card-fluid",
                     "group relative  cursor-pointer overflow-hidden p-[12px]",
-                    "hover-bg-base text-base-default rounded-md transition-colors duration-100",
-                    "border-none mb-6"
+                    "bg-transparent hover-bg-base text-base-default rounded-md transition-colors duration-100",
+                    "border-none",
+                    mb ? `mb-${mb}` : "mb-6"
                 )}
             >
                 {/* artist image & play button */}

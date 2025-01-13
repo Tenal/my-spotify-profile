@@ -15,17 +15,17 @@ export function InfoModal() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button aria-label="Info" className="text-green-500">
+                <button aria-label="Info">
                     <Info className="hidden sm:block w-10 h-10 text-[hsl(var(--secondary))] hover:scale-105 hover:text-[hsl(var(--muted))] hover:cursor-pointer transition-all duration-200" />
                 </button>
             </DialogTrigger>
-            <DialogContent className="p-4 border-0 max-w-sm bg-[hsl(var(--background-hover))]">
+            <DialogContent className="px-4 pt-3.5 pb-5 border-0 max-w-sm bg-[hsl(var(--background-hover))]">
                 <DialogHeader>
-                    <DialogTitle className="text-[hsl(var(--secondary))]">
+                    <DialogTitle className="text-[hsl(var(--secondary))] text-sm sm:text-lg">
                         Credits & Additional Information
                     </DialogTitle>
                     <DialogDescription>
-                        <ul className="list-disc pt-3 pl-5 space-y-2">
+                        <ul className="list-disc pt-2 pl-5 space-y-2 text-xs sm:text-sm">
                             <li className="list-none sm:list-disc">
                                 Design inspired by the{" "}
                                 <a

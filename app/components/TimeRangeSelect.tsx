@@ -24,8 +24,7 @@ export function TimeRangeSelect({ currentRange }: ITimeRangeSelectProps) {
     const handleChange = (value: string) => {
         const params = new URLSearchParams(searchParams.toString())
         params.set("range", value)
-
-        router.push(`?${params.toString()}`) // Updates the URL dynamically
+        router.push(`?${params.toString()}`)
     }
 
     return (

@@ -32,27 +32,29 @@ export default async function TopArtistsPage({
     )
 
     return (
-        <div className="p-4">
-            <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
-                <h1 className="mb-4 sm:mb-2">Top Artists</h1>
-                <TimeRangeSelect currentRange={userRange} />
-            </div>
+        <div className="view-spacing">
+            <div className="p-4">
+                <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
+                    <h1 className="mb-4 sm:mb-2">Top Artists</h1>
+                    <TimeRangeSelect currentRange={userRange} />
+                </div>
 
-            <div className="fluid-grid mt-4">
-                {artists.items?.length ? (
-                    artists.items.map((artist: IArtist) => (
-                        <MediaCard
-                            key={artist.id}
-                            name={artist.name}
-                            mediaType={artist.type}
-                            link="/"
-                            spotifyLink={artist.uri}
-                            imageSrc={artist.images?.[0]?.url}
-                        />
-                    ))
-                ) : (
-                    <p>No artists found for specified time range.</p>
-                )}
+                <div className="fluid-grid mt-4">
+                    {artists.items?.length ? (
+                        artists.items.map((artist: IArtist) => (
+                            <MediaCard
+                                key={artist.id}
+                                name={artist.name}
+                                mediaType={artist.type}
+                                link="/"
+                                spotifyLink={artist.uri}
+                                imageSrc={artist.images?.[0]?.url}
+                            />
+                        ))
+                    ) : (
+                        <p>No artists found for specified time range.</p>
+                    )}
+                </div>
             </div>
         </div>
     )
