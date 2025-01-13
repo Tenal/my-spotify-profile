@@ -11,7 +11,8 @@ export default async function TopTracksPage({
 }: {
     searchParams: { range?: string }
 }) {
-    const userRange = searchParams.range || "all-time"
+    const { range } = await searchParams // note: dynamic APIs are async in Next.js v15+
+    const userRange = range || "all-time"
     const spotifyRange = getSpotifyTimeRange(userRange)
 
     const cookieStore = await cookies()
@@ -34,7 +35,7 @@ export default async function TopTracksPage({
     return (
         <div className="p-4">
             <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
-                <h1 className="mb-4 sm:mb-0">Top Tracks</h1>
+                <h1 className="mb-4 sm:mb-2">Top Tracks</h1>
                 <TimeRangeSelect currentRange={userRange} />
             </div>
 
