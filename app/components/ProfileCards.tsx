@@ -16,7 +16,7 @@ export function ProfileCards({ title, link, data }: IProfileCardsProps) {
     const isPlaylist = link.includes("playlist")
 
     return (
-        <div className="mb-16 sm:mb-5">
+        <div className="mb-8 sm:mb-5">
             <div className="flex flex-col sm:flex-row justify-between items-center">
                 <h2 className="text-xl xs:text-2xl mb-4 sm:mb-0">{title}</h2>
                 <Link

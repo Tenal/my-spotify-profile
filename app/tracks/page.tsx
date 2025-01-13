@@ -2,6 +2,7 @@ import { cookies } from "next/headers"
 import { spotifyFetch } from "@/lib/spotify"
 import { getSpotifyTimeRange } from "@/lib/generalFunctions"
 import { ITrack } from "@/lib/typescript"
+import { LoginPage } from "@/components/LoginPage"
 import { TimeRangeSelect } from "@/components/TimeRangeSelect"
 import { SongRow } from "@/components/SongRow"
 import { SongRowHeader } from "@/components/SongRowHeader"
@@ -11,20 +12,16 @@ export default async function TopTracksPage({
 }: {
     searchParams: { range?: string }
 }) {
-    const { range } = await searchParams // note: dynamic APIs are async in Next.js v15+
+    const { range } = await searchParams
     const userRange = range || "all-time"
     const spotifyRange = getSpotifyTimeRange(userRange)
 
     const cookieStore = await cookies()
     const accessToken = cookieStore.get("spotify_access_token")?.value
 
-    // TODO - add reauth flow /or/ full error page
+    // TODO - add reauth flow
     if (!accessToken) {
-        return (
-            <div className="p-8">
-                <p>No access token found. Please log in.</p>
-            </div>
-        )
+        return <LoginPage />
     }
 
     const tracks = await spotifyFetch(

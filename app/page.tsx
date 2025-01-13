@@ -1,22 +1,17 @@
 import { cookies } from "next/headers"
 import { spotifyFetch } from "@/lib/spotify"
-
+import { LoginPage } from "@/components/LoginPage"
 import { ProfileHeader } from "./components/ProfileHeader"
 import { ProfileCards } from "./components/ProfileCards"
 import { ProfileTracks } from "./components/ProfileTracks"
-import { ErrorMessage } from "./components/ErrorMessage"
 
 export default async function Home() {
-    const cookieStore = await cookies()
+    const cookieStore = await cookies() // note: dynamic APIs are async in Next.js v15+
     const accessToken = cookieStore.get("spotify_access_token")?.value
 
-    // TODO - add reauth flow /or/ full error page
+    // TODO - add reauth flow
     if (!accessToken) {
-        return (
-            <div className="p-8">
-                <ErrorMessage message="No access token found. Please log in." />
-            </div>
-        )
+        return <LoginPage />
     }
 
     const user = await spotifyFetch(`me`, accessToken)
@@ -36,26 +31,28 @@ export default async function Home() {
 
     return (
         <div className="view-spacing gradient-bg">
-            <ProfileHeader
-                user={user}
-                following={userFollowing.artists.total}
-                playlists={playlists.total}
-            />
-            <ProfileCards
-                title="Top artists of all time"
-                link="/artists"
-                data={artists.items}
-            />
-            <ProfileTracks
-                title="Top tracks of all time"
-                link="/tracks"
-                data={tracks.items}
-            />
-            <ProfileCards
-                title="Public playlists"
-                link="/playlists"
-                data={playlists.items}
-            />
+            <div className="pb-4">
+                <ProfileHeader
+                    user={user}
+                    following={userFollowing.artists.total}
+                    playlists={playlists.total}
+                />
+                <ProfileCards
+                    title="Top artists of all time"
+                    link="/artists"
+                    data={artists.items}
+                />
+                <ProfileTracks
+                    title="Top tracks of all time"
+                    link="/tracks"
+                    data={tracks.items}
+                />
+                <ProfileCards
+                    title="Public playlists"
+                    link="/playlists"
+                    data={playlists.items}
+                />
+            </div>
         </div>
     )
 }

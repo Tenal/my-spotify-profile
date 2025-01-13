@@ -1,17 +1,6 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
-// interface ITokenData {
-//     access_token: string
-//     token_type: string
-//     expires_in: number
-// }
-
-// interface IErrorData {
-//     error: string
-//     status: number
-// }
-
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const code = searchParams.get("code")

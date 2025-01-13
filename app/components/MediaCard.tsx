@@ -51,8 +51,6 @@ export function MediaCard({
         e.stopPropagation()
     }
 
-    console.log(mb)
-
     return (
         <TooltipProvider>
             <Card
@@ -61,7 +59,7 @@ export function MediaCard({
                     "card-fluid",
                     "group relative  cursor-pointer overflow-hidden p-[12px]",
                     "bg-transparent hover-bg-base text-base-default rounded-md transition-colors duration-100",
-                    "border-none",
+                    "border-0",
                     mb ? `mb-${mb}` : "mb-6"
                 )}
             >
@@ -133,7 +131,7 @@ export function MediaCard({
                                 data-[state=open]:duration-300
                                 bg-[hsl(var(--popover))]
                                 text-[hsl(var(--popover-foreground))]
-                                border-none
+                                border-0
                             "
                         >
                             Play {name} on Spotify
