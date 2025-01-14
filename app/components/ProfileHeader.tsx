@@ -1,5 +1,7 @@
 "use client"
 
+import React from "react"
+import { ReactFitty } from "react-fitty"
 import { useRouter } from "next/navigation"
 import { IUser } from "@/lib/typescript"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -44,21 +46,27 @@ export function ProfileHeader({
                     <User className="w-[100px] h-[100px]" />
                 </AvatarFallback>
             </Avatar>
-            <div className="flex flex-col gap-2 w-full">
+            <div className="text-center sm:text-left flex flex-col gap-2 w-full">
                 <p className="text-sm text-[hsl(var(--primary))] hidden sm:block">
                     Profile
                 </p>
-                <h1 className="text-center sm:text-left text-8xl font-bold leading-tight">
-                    {user.display_name}
-                </h1>
+                <div className="w-full overflow-hidden whitespace-nowrap truncate">
+                    <ReactFitty
+                        maxSize={96}
+                        minSize={20}
+                        className="block font-bold leading-tight truncate"
+                    >
+                        {user.display_name}
+                    </ReactFitty>
+                </div>
                 <div className="flex flex-col sm:flex-row sm:justify-between items-center">
-                    <p className="text-center sm:text-left text-sm text-[hsl(var(--secondary))]">
+                    <p className="text-sm text-[hsl(var(--secondary))]">
                         {playlists} Playlists · {user.followers.total} Followers
                         · {following} Following
                     </p>
                     <button
                         onClick={handleLogout}
-                        className="mt-4 ml-0 sm:mt-0 sm:ml-2 px-3 py-2 bg-[hsl(var(--accent))] text-xs text-[hsl(var(--background-active))] uppercase font-medium tracking-wide rounded-full hover:bg-[hsl(var(--accent-hover))] hover:scale-105 transition-all duration-200"
+                        className="mt-4 ml-0 sm:mt-0 sm:ml-2 px-3 pt-2 pb-1 bg-[hsl(var(--accent))] text-xs text-[hsl(var(--background-active))] uppercase font-medium tracking-wide rounded-full hover:bg-[hsl(var(--accent-hover))] hover:scale-105 transition-all duration-200"
                     >
                         Logout
                     </button>

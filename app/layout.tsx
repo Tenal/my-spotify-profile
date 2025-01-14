@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { NavigationBar } from "@/components/NavigationBar"
+import { LoginPage } from "./components/LoginPage"
 import { cookies } from "next/headers"
 import "./globals.css"
 
@@ -29,6 +30,16 @@ export default async function RootLayout({
 }>) {
     const cookieStore = await cookies()
     const accessToken = cookieStore.get("spotify_access_token")?.value
+
+    if (!accessToken) {
+        return (
+            <html lang="en">
+                <body>
+                    <LoginPage />
+                </body>
+            </html>
+        )
+    }
 
     return (
         <html lang="en">

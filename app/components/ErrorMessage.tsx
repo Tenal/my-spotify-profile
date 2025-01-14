@@ -10,8 +10,7 @@ interface IErrorMessageProps {
 export function ErrorMessage({ message }: IErrorMessageProps) {
     return (
         <p className="flex justify-start text-[hsl(var(--secondary))]">
-            <TriangleAlert className="mr-3 text-yellow-500 w-15 h-15" />{" "}
-            {message}
+            <TriangleAlert className="mr-3 text-yellow-500 w-16" /> {message}
         </p>
     )
 }

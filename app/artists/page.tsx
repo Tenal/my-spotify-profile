@@ -1,32 +1,21 @@
 import { cookies } from "next/headers"
-import { spotifyFetch } from "@/lib/spotify"
-import { getSpotifyTimeRange } from "@/lib/generalFunctions"
+import { Suspense, use } from "react"
 import { IArtist } from "@/lib/typescript"
-import { LoginPage } from "@/components/LoginPage"
-import { TimeRangeSelect } from "@/components/TimeRangeSelect"
+import { getTopArtists } from "@/lib/spotify"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
+import { Loader } from "@/components/Loader"
 import { MediaCard } from "@/components/MediaCard"
+import { TimeRangeSelect } from "@/components/TimeRangeSelect"
 
-export default async function TopArtistsPage({
+export default async function ArtistsPage({
     searchParams,
 }: {
     searchParams: { range?: string }
 }) {
-    const { range } = await searchParams
-    const userRange = range || "all-time"
-    const spotifyRange = getSpotifyTimeRange(userRange)
-
     const cookieStore = await cookies()
     const accessToken = cookieStore.get("spotify_access_token")?.value
-
-    // TODO - add reauth flow
-    if (!accessToken) {
-        return <LoginPage />
-    }
-
-    const artists = await spotifyFetch(
-        `me/top/artists?time_range=${spotifyRange}&limit=50`,
-        accessToken
-    )
+    const userRange = searchParams.range || "all-time"
+    const dataPromise = getTopArtists(userRange, accessToken!)
 
     return (
         <div className="view-spacing">
@@ -35,24 +24,36 @@ export default async function TopArtistsPage({
                     <h1 className="mb-4 sm:mb-2">Top Artists</h1>
                     <TimeRangeSelect currentRange={userRange} />
                 </div>
-
-                <div className="fluid-grid mt-4">
-                    {artists.items?.length ? (
-                        artists.items.map((artist: IArtist) => (
-                            <MediaCard
-                                key={artist.id}
-                                name={artist.name}
-                                mediaType={artist.type}
-                                link="/"
-                                spotifyLink={artist.uri}
-                                imageSrc={artist.images?.[0]?.url}
-                            />
-                        ))
-                    ) : (
-                        <p>No artists found for specified time range.</p>
-                    )}
-                </div>
+                <ErrorBoundary>
+                    <Suspense fallback={<Loader />}>
+                        <ArtistsSection dataPromise={dataPromise} />
+                    </Suspense>
+                </ErrorBoundary>
             </div>
+        </div>
+    )
+}
+
+const ArtistsSection = ({
+    dataPromise,
+}: {
+    dataPromise: Promise<{ items: IArtist[] }>
+}) => {
+    const data = use(dataPromise)
+    const items: IArtist[] = data?.items || []
+
+    return (
+        <div className="fluid-grid mt-4">
+            {items.map((artist: IArtist) => (
+                <MediaCard
+                    key={artist.id}
+                    name={artist.name}
+                    mediaType={artist.type}
+                    link="/"
+                    spotifyLink={artist.uri}
+                    imageSrc={artist.images?.[0]?.url}
+                />
+            ))}
         </div>
     )
 }

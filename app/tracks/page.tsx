@@ -1,33 +1,22 @@
 import { cookies } from "next/headers"
-import { spotifyFetch } from "@/lib/spotify"
-import { getSpotifyTimeRange } from "@/lib/generalFunctions"
-import { ITrack } from "@/lib/typescript"
-import { LoginPage } from "@/components/LoginPage"
+import { Suspense, use } from "react"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
+import { Loader } from "@/components/Loader"
 import { TimeRangeSelect } from "@/components/TimeRangeSelect"
+import { getTopTracks } from "@/lib/spotify"
 import { SongRow } from "@/components/SongRow"
 import { SongRowHeader } from "@/components/SongRowHeader"
+import { ITrack } from "@/lib/typescript"
 
 export default async function TopTracksPage({
     searchParams,
 }: {
     searchParams: { range?: string }
 }) {
-    const { range } = await searchParams
-    const userRange = range || "all-time"
-    const spotifyRange = getSpotifyTimeRange(userRange)
-
     const cookieStore = await cookies()
     const accessToken = cookieStore.get("spotify_access_token")?.value
-
-    // TODO - add reauth flow
-    if (!accessToken) {
-        return <LoginPage />
-    }
-
-    const tracks = await spotifyFetch(
-        `me/top/tracks?time_range=${spotifyRange}&limit=50`,
-        accessToken
-    )
+    const userRange = searchParams.range || "all-time"
+    const dataPromise = getTopTracks(userRange, accessToken!)
 
     return (
         <div className="view-spacing">
@@ -37,28 +26,50 @@ export default async function TopTracksPage({
                     <TimeRangeSelect currentRange={userRange} />
                 </div>
 
-                <SongRowHeader />
-                <div className="mt-4 w-full">
-                    {tracks.items?.length ? (
-                        tracks.items.map((track: ITrack, index: number) => (
-                            <SongRow
-                                key={track.id}
-                                name={track.name}
-                                artist={track.artists[0].name}
-                                album={track.album.name}
-                                songLength={track.duration_ms}
-                                explicit={track.explicit}
-                                artistLink="/"
-                                spotifyLink={track.uri ?? "/"}
-                                imageSrc={track.album.images?.[0]?.url}
-                                index={index}
-                            />
-                        ))
-                    ) : (
-                        <p>No tracks found for specified time range.</p>
-                    )}
-                </div>
+                <ErrorBoundary>
+                    <Suspense fallback={<Loader />}>
+                        <TopTracksSection dataPromise={dataPromise} />
+                    </Suspense>
+                </ErrorBoundary>
             </div>
         </div>
+    )
+}
+
+function TopTracksSection({
+    dataPromise,
+}: {
+    dataPromise: Promise<{ items: ITrack[] }>
+}) {
+    const data = use(dataPromise)
+    const { items } = data
+
+    return (
+        <>
+            <SongRowHeader />
+            <div className="mt-4 w-full">
+                {items.map((track: ITrack, index: number) => {
+                    const { name, artists, album, duration_ms, explicit, uri } =
+                        track
+                    const artistName = artists[0]?.name || "Unknown Artist"
+                    const albumName = album?.name || "Unknown Album"
+
+                    return (
+                        <SongRow
+                            key={track.id}
+                            name={name}
+                            artist={artistName}
+                            album={albumName}
+                            songLength={duration_ms}
+                            explicit={explicit}
+                            artistLink="/"
+                            spotifyLink={uri}
+                            imageSrc={album?.images?.[0]?.url}
+                            index={index}
+                        />
+                    )
+                })}
+            </div>
+        </>
     )
 }
