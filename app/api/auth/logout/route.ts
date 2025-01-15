@@ -1,24 +1,17 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
-export async function GET(request: Request) {
+export async function GET() {
     const nextCookies = await cookies()
+    nextCookies.delete("spotify_access_token")
+    nextCookies.delete("spotify_refresh_token")
 
-    // clear access and refresh tokens
-    nextCookies.set("spotify_access_token", "", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 0,
+    return new NextResponse(null, {
+        status: 303,
+        headers: {
+            Location: "/",
+            "Cache-Control": "no-store, max-age=0",
+            "Clear-Site-Data": '"cookies"',
+        },
     })
-
-    nextCookies.set("spotify_refresh_token", "", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 0,
-    })
-
-    // redirect user to the homepage after logging out
-    return NextResponse.redirect(new URL("/", request.url))
 }

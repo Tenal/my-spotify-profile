@@ -3,7 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { NavigationBar } from "@/components/NavigationBar"
 import { LoginPage } from "./components/LoginPage"
 import { cookies } from "next/headers"
+import { ErrorBoundary } from "./components/ErrorBoundary"
 import "./globals.css"
+
+export const dynamic = "force-dynamic"
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -31,23 +34,19 @@ export default async function RootLayout({
     const cookieStore = await cookies()
     const accessToken = cookieStore.get("spotify_access_token")?.value
 
-    if (!accessToken) {
-        return (
-            <html lang="en">
-                <body>
-                    <LoginPage />
-                </body>
-            </html>
-        )
-    }
-
     return (
         <html lang="en">
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                {accessToken && <NavigationBar />}
-                <main>{children}</main>
+                {accessToken ? (
+                    <ErrorBoundary>
+                        <NavigationBar />
+                        <main>{children}</main>
+                    </ErrorBoundary>
+                ) : (
+                    <LoginPage />
+                )}
             </body>
         </html>
     )

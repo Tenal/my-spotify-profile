@@ -26,46 +26,39 @@ export async function GET(request: Request) {
         "base64"
     )
 
-    try {
-        const response = await fetch(tokenUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Basic ${authHeader}`,
-            },
-            body: bodyParams.toString(),
-        })
+    const response = await fetch(tokenUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Basic ${authHeader}`,
+        },
+        body: bodyParams.toString(),
+    })
 
-        if (!response.ok) {
-            const errorData = await response.json()
-            return NextResponse.json(errorData, { status: response.status })
-        }
+    // if response status is not OK, parse the error body and return
+    if (!response.ok) {
+        const errorData = await response.json()
+        return NextResponse.json(errorData, { status: response.status })
+    }
 
-        const tokenData = await response.json()
-
-        // store tokens in cookies
-        const nextCookies = await cookies()
-        nextCookies.set("spotify_access_token", tokenData.access_token, {
+    // otherwise, parse response & store tokens in cookies
+    const tokenData = await response.json()
+    const nextCookies = await cookies()
+    nextCookies.set("spotify_access_token", tokenData.access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        maxAge: tokenData.expires_in,
+    })
+    if (tokenData.refresh_token) {
+        nextCookies.set("spotify_refresh_token", tokenData.refresh_token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             path: "/",
             maxAge: tokenData.expires_in,
         })
-        if (tokenData.refresh_token) {
-            nextCookies.set("spotify_refresh_token", tokenData.refresh_token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                path: "/",
-                maxAge: tokenData.expires_in,
-            })
-        }
-
-        return NextResponse.redirect(new URL("/", request.url))
-    } catch (error) {
-        console.error("Error exchanging code for token:", error)
-        return NextResponse.json(
-            { error: "Token exchange failed" },
-            { status: 500 }
-        )
     }
+
+    // redirect user to home on success
+    return NextResponse.redirect(new URL("/", request.url))
 }
