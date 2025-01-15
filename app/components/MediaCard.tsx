@@ -42,13 +42,12 @@ export function MediaCard({
         .join("")
 
     const handleCardClick = () => {
-        router.push(link)
-    }
+        const currentParams = new URLSearchParams(window.location.search)
+        const artistOrPlaylist = mediaType === "artist" ? "artist" : "playlist"
+        currentParams.set(artistOrPlaylist, link)
 
-    const handleNameClick = (
-        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-    ) => {
-        e.stopPropagation()
+        const newUrl = `${artistOrPlaylist}s?${currentParams.toString()}`
+        router.push(newUrl)
     }
 
     return (
@@ -144,7 +143,7 @@ export function MediaCard({
                     <span className="font-normal leading-tight">
                         <Link
                             href={link}
-                            onClick={handleNameClick}
+                            onClick={handleCardClick}
                             className="hover:underline "
                         >
                             {name}

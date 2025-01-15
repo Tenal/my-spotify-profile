@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -20,6 +21,7 @@ interface ISongRowProps {
     songLength: number
     explicit: boolean
     artistLink: string
+    songLink: string
     spotifyLink: string
     index: number
 }
@@ -32,18 +34,29 @@ export function SongRow({
     songLength,
     explicit,
     artistLink,
+    songLink,
     spotifyLink,
     index,
 }: ISongRowProps) {
+    const router = useRouter()
+
     const fallbackInitials = name
         .split(" ")
         .map((n) => n[0]?.toUpperCase())
         .splice(0, 2)
         .join("")
 
+    const handleRowClick = () => {
+        const currentParams = new URLSearchParams(window.location.search)
+        currentParams.set("track", songLink)
+        const newUrl = `tracks?${currentParams.toString()}`
+        router.push(newUrl)
+    }
+
     return (
         <TooltipProvider>
             <div
+                onClick={handleRowClick}
                 className={cn(
                     "group flex items-center w-full gap-4 px-3 py-2 rounded-sm",
                     "hover:bg-[hsl(var(--background-hover))]",
@@ -122,7 +135,12 @@ export function SongRow({
                                 </span>
                             )}
                             <Link
-                                href={artistLink}
+                                href={
+                                    artistLink
+                                        ? `artists?artist=${artistLink}`
+                                        : "artists"
+                                }
+                                onClick={(e) => e.stopPropagation()}
                                 className="hover:underline text-[hsl(var(--secondary))] truncate mt-1"
                             >
                                 {artist}

@@ -33,7 +33,7 @@ export function Loader() {
 
 const Bar = ({ delay = "0ms" }: IBarProps) => (
     <div
-        className="w-[10px] h-[5px] mx-[2px] bg-[hsl(var(--secondary))]"
+        className="w-[10px] h-[5px] mx-[2px] bg-[hsl(var(--background-hover-extralight))]"
         style={{
             animationName: "dance",
             animationDuration: "400ms",

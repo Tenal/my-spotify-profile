@@ -22,7 +22,7 @@ export interface ITrack {
     id: string
     name: string
     uri: string
-    artists: { name: string }[]
+    artists: { name: string; id: string }[]
     album: { name: string; images: ISpotifyImage[] }
     duration_ms: number
     explicit: boolean
@@ -127,10 +127,12 @@ export interface IPlaylist {
     tracks: {
         href: string
         total: number
+        items?: any[]
         [key: string]: unknown
     }
     type: string
     uri: string
+    followers?: { href: string | null; total: number }
 }
 
 export interface IUser {

@@ -41,7 +41,7 @@ export function ProfileCards({ title, link, data }: IProfileCardsProps) {
                                           }`
                                         : card.type
                                 }
-                                link="/"
+                                link={card.id}
                                 spotifyLink={card.uri}
                                 imageSrc={card.images?.[0]?.url}
                                 squareAvatar={isPlaylist}
@@ -51,9 +51,11 @@ export function ProfileCards({ title, link, data }: IProfileCardsProps) {
                     </div>
                 ) : (
                     <ErrorMessage
-                        message={`No ${link.substring(
+                        message={`Failed to fetch ${link.substring(
                             1
-                        )} found, please re-login and try again`}
+                        )}. Please refresh and try again. If the problem persists, you may not have any ${link.substring(
+                            1
+                        )} data associated with your Spotify account or there could be a transient issue with the Spotify API.`}
                     />
                 )}
             </div>

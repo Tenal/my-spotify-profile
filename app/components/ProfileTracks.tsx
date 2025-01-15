@@ -34,14 +34,15 @@ export function ProfileTracks({ title, link, data }: IProfileTracksProps) {
                             album={track.album.name}
                             songLength={track.duration_ms}
                             explicit={track.explicit}
-                            artistLink="/"
+                            artistLink={track.artists[0].id}
+                            songLink={track.id}
                             spotifyLink={track.uri ?? "/"}
                             imageSrc={track.album.images?.[0]?.url}
                             index={index}
                         />
                     ))
                 ) : (
-                    <ErrorMessage message="No tracks found, please re-login and try again" />
+                    <ErrorMessage message="Failed to fetch top tracks. Please refresh and try again. If the problem persists, you may not have any track data associated with your Spotify account or there could be a transient issue with the Spotify API." />
                 )}
             </div>
         </div>

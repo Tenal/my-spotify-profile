@@ -1,16 +1,16 @@
-import { cookies } from "next/headers"
 import { Suspense, use } from "react"
 import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { Loader } from "@/components/Loader"
 import { ProfileHeader } from "./components/ProfileHeader"
 import { ProfileCards } from "./components/ProfileCards"
 import { ProfileTracks } from "./components/ProfileTracks"
-import { getHomeProfileData } from "@/lib/spotify"
+import { getSpotifyAuthToken, getHomeProfileData } from "@/lib/spotify"
 import { IArtist, IPlaylist, ITrack, IUser } from "./lib/typescript"
 
 export default async function HomePage() {
-    const cookieStore = await cookies() // note: dynamic APIs are async in Next.js v15+
-    const accessToken = cookieStore.get("spotify_access_token")?.value
+    const accessToken = await getSpotifyAuthToken()
+    if (!accessToken) return null
+
     const dataPromise = getHomeProfileData(accessToken!)
 
     return (
@@ -30,7 +30,7 @@ const HomeSection = ({
     dataPromise: Promise<{
         user: IUser
         userFollowing: { artists: { total: number } }
-        artists: { items: IArtist[]; total: number }
+        artists: { items: IArtist[] }
         playlists: { items: IPlaylist[]; total: number }
         tracks: { items: ITrack[] }
     }>
