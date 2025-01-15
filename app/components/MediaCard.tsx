@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { useRouter } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
+import { cn, getFallbackInitials } from "@/lib/utils"
 
 import { Card } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -34,15 +34,10 @@ export function MediaCard({
     mb,
 }: IMediaCardProps) {
     const router = useRouter()
-
-    const fallbackInitials = name
-        .split(" ")
-        .map((n) => n[0]?.toUpperCase())
-        .splice(0, 2)
-        .join("")
+    const searchParams = useSearchParams()
 
     const handleCardClick = () => {
-        const currentParams = new URLSearchParams(window.location.search)
+        const currentParams = new URLSearchParams(searchParams.toString())
         const artistOrPlaylist = mediaType === "artist" ? "artist" : "playlist"
         currentParams.set(artistOrPlaylist, link)
 
@@ -84,7 +79,7 @@ export function MediaCard({
                                 squareAvatar ? "rounded-md" : "rounded-full"
                             )}
                         >
-                            {fallbackInitials}
+                            {getFallbackInitials(name)}
                         </AvatarFallback>
                     </Avatar>
                     <Tooltip>

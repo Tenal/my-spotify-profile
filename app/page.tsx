@@ -38,7 +38,7 @@ const HomeSection = ({
     const { user, userFollowing, artists, playlists, tracks } = use(dataPromise)
 
     return (
-        <div className="pb-4">
+        <div className="pb-10 sm:pb-4">
             <ProfileHeader
                 user={user}
                 following={userFollowing.artists.total}

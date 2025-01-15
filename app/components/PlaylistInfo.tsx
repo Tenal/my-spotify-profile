@@ -2,8 +2,10 @@
 
 import React from "react"
 import Link from "next/link"
+import { usePathname, useSearchParams } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { IPlaylist, ITrack } from "@/lib/typescript"
+import { getFallbackInitials } from "@/lib/utils"
 import { SongRowHeader } from "./SongRowHeader"
 import { SongRow } from "./SongRow"
 
@@ -12,17 +14,14 @@ interface IPlaylistInfoProps {
 }
 
 export function PlaylistInfo({ playlist }: IPlaylistInfoProps) {
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
     const formattedFollowers = playlist.followers?.total.toLocaleString() || 0
-    const fallbackInitials = playlist.name
-        .split(" ")
-        .map((n) => n[0]?.toUpperCase())
-        .splice(0, 2)
-        .join("")
 
     const getPlaylistsUrl = () => {
-        const currentParams = new URLSearchParams(window.location.search)
+        const currentParams = new URLSearchParams(searchParams.toString())
         currentParams.delete("playlist")
-        return `${window.location.pathname}?${currentParams.toString()}`
+        return `${pathname}?${currentParams.toString()}`
     }
 
     return (
@@ -45,7 +44,7 @@ export function PlaylistInfo({ playlist }: IPlaylistInfoProps) {
                             className="object-cover"
                         />
                         <AvatarFallback className="bg-[hsl(var(--background-hover))] text-[hsl(var(--secondary))] text-4xl font-bold">
-                            {fallbackInitials}
+                            {getFallbackInitials(playlist.name)}
                         </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col justify-between items-center sm:items-start gap-2 h-full">
@@ -61,7 +60,7 @@ export function PlaylistInfo({ playlist }: IPlaylistInfoProps) {
 
                 <div className="mt-4 w-full">
                     <SongRowHeader />
-                    {playlist.tracks?.items?.length &&
+                    {playlist.tracks?.items?.length ? (
                         playlist.tracks.items.map(
                             (track: { track: ITrack }, index: number) => (
                                 <SongRow
@@ -80,7 +79,12 @@ export function PlaylistInfo({ playlist }: IPlaylistInfoProps) {
                                     index={index}
                                 />
                             )
-                        )}
+                        )
+                    ) : (
+                        <p className="text-[hsl(var(--secondary))] mt-5">
+                            Oops, this playlist does not have any tracks yet!
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

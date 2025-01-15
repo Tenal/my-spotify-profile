@@ -40,11 +40,11 @@ export function NavigationBar() {
                             href={href}
                             className={cn(
                                 "flex flex-col items-center justify-center gap-1 w-full sm:w-[70px] h-full sm:h-[70px]",
-                                "transition-colors duration-200 text-xs font-medium border-t-4 border-black sm:border-l-4",
-                                "hover:bg-[hsl(var(--background-hover))] hover:text-[hsl(var(--foreground))] hover:border-grey-500",
+                                "transition-colors duration-200 text-xs font-medium",
+                                "border-t-4 sm:border-t-0 sm:border-l-4 border-black",
+                                "hover:bg-[hsl(var(--background-hover))] hover:text-[hsl(var(--foreground))] hover:border-[hsl(var(--background-hover))]",
                                 isActive &&
-                                    "bg-[hsl(var(--background-hover))] text-[hsl(var(--foreground))]" +
-                                        "border-t-4 sm:border-t-0 border-l-0 sm:border-l-4 border-green-500"
+                                    "bg-[hsl(var(--background-hover))] text-[hsl(var(--foreground))] border-green-500"
                             )}
                         >
                             <Icon

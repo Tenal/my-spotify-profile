@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { useRouter } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
+import { cn, getFallbackInitials } from "@/lib/utils"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -39,15 +39,10 @@ export function SongRow({
     index,
 }: ISongRowProps) {
     const router = useRouter()
-
-    const fallbackInitials = name
-        .split(" ")
-        .map((n) => n[0]?.toUpperCase())
-        .splice(0, 2)
-        .join("")
+    const searchParams = useSearchParams()
 
     const handleRowClick = () => {
-        const currentParams = new URLSearchParams(window.location.search)
+        const currentParams = new URLSearchParams(searchParams.toString())
         currentParams.set("track", songLink)
         const newUrl = `tracks?${currentParams.toString()}`
         router.push(newUrl)
@@ -115,7 +110,7 @@ export function SongRow({
                             className="object-cover w-full h-full"
                         />
                         <AvatarFallback className="flex items-center justify-center w-full h-full text-xl font-bold bg-[hsl(var(--background))] text-[hsl(var(--secondary))]">
-                            {fallbackInitials}
+                            {getFallbackInitials(name)}
                         </AvatarFallback>
                     </Avatar>
                 </div>

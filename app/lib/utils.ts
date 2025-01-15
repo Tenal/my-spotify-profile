@@ -31,3 +31,18 @@ export const getSpotifyTimeRange = (
             return "long_term"
     }
 }
+
+/**
+ * getFallbackInitials derives up to two uppercase initials from a full name.
+ * it splits the name by spaces, takes the first character of each part,
+ * converts them to uppercase, and joins up to two characters together.
+ * @param name - the full name string (e.g., artist or track name)
+ * @returns a string of up to two uppercase initials
+ */
+export const getFallbackInitials = (name: string): string => {
+    return name
+        .split(" ")
+        .map((n) => n[0]?.toUpperCase())
+        .splice(0, 2)
+        .join("")
+}

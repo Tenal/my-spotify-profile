@@ -14,7 +14,7 @@ interface IProfileTracksProps {
 
 export function ProfileTracks({ title, link, data }: IProfileTracksProps) {
     return (
-        <div className="mb-24 sm:mb-16">
+        <div className="mb-16">
             <div className="flex flex-col sm:flex-row justify-between items-center">
                 <h2 className="text-xl xs:text-2xl mb-4 sm:mb-0">{title}</h2>
                 <Link
