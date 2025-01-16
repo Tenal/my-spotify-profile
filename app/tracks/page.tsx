@@ -11,7 +11,7 @@ import { TrackInfo } from "@/components/TrackInfo"
 export default async function TopTracksPage({
     searchParams,
 }: {
-    searchParams: { range?: string; track?: string }
+    searchParams: Promise<{ range?: string; track?: string }>
 }) {
     const accessToken = await getSpotifyAuthToken()
     if (!accessToken) return null

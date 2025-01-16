@@ -13,7 +13,7 @@ import { PlaylistInfo } from "@/components/PlaylistInfo"
 export default async function PlaylistsPage({
     searchParams,
 }: {
-    searchParams: { playlist?: string }
+    searchParams: Promise<{ playlist?: string }>
 }) {
     const accessToken = await getSpotifyAuthToken()
     if (!accessToken) return null

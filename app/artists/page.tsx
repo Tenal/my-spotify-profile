@@ -10,7 +10,7 @@ import { ArtistInfo } from "@/components/ArtistInfo"
 export default async function ArtistsPage({
     searchParams,
 }: {
-    searchParams: { range?: string; artist?: string }
+    searchParams: Promise<{ range?: string; artist?: string }>
 }) {
     const accessToken = await getSpotifyAuthToken()
     if (!accessToken) return null

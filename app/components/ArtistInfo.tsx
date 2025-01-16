@@ -74,7 +74,7 @@ export function ArtistInfo({ artist }: IArtistInfoProps) {
                     </h1>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center w-full mt-3">
-                        <div className="max-w-[300px] m-auto">
+                        <div className="max-w-[300px] m-auto sm:m-0">
                             <p className="text-xs uppercase text-[hsl(var(--secondary))]">
                                 Followers
                             </p>
@@ -83,7 +83,7 @@ export function ArtistInfo({ artist }: IArtistInfoProps) {
                             </p>
                         </div>
 
-                        <div className="max-w-[300px] m-auto">
+                        <div className="max-w-[300px] m-auto sm:m-0">
                             <p className="text-xs uppercase text-[hsl(var(--secondary))]">
                                 Genres
                             </p>
@@ -101,7 +101,7 @@ export function ArtistInfo({ artist }: IArtistInfoProps) {
                             </div>
                         </div>
 
-                        <div className="max-w-[300px] m-auto">
+                        <div className="max-w-[300px] m-auto sm:m-0">
                             <p className="text-xs uppercase text-[hsl(var(--secondary))]">
                                 Popularity
                             </p>

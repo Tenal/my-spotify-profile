@@ -73,7 +73,7 @@ export function TrackInfo({ track }: ITrackInfoProps) {
                     </h1>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center w-full mt-3">
-                        <div className="max-w-[300px] m-auto">
+                        <div className="max-w-[300px] m-auto sm:m-0">
                             <p className="text-xs uppercase text-[hsl(var(--secondary))]">
                                 Album
                             </p>
@@ -82,7 +82,7 @@ export function TrackInfo({ track }: ITrackInfoProps) {
                             </p>
                         </div>
 
-                        <div className="max-w-[300px] m-auto">
+                        <div className="max-w-[300px] m-auto sm:m-0">
                             <p className="text-xs uppercase text-[hsl(var(--secondary))]">
                                 Artists
                             </p>
@@ -100,7 +100,7 @@ export function TrackInfo({ track }: ITrackInfoProps) {
                             </div>
                         </div>
 
-                        <div className="max-w-[300px] m-auto">
+                        <div className="max-w-[300px] m-auto sm:m-0">
                             <p className="text-xs uppercase text-[hsl(var(--secondary))]">
                                 Popularity
                             </p>
