@@ -51,7 +51,7 @@ export function InfoModal() {
                                 .
                             </li>
                             <li className="list-none sm:list-disc">
-                                Most view designs inspired by the{" "}
+                                Modeled after the{" "}
                                 <a
                                     href="https://open.spotify.com/"
                                     className="text-green-500 hover:underline"

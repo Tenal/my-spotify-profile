@@ -1,6 +1,6 @@
 # My Spotify Profile
 
-A web application for viewing and analyzing your Spotify data. It uses Next.js v15+ (App Router), TypeScript, Tailwind CSS, and shadcn/ui. OAuth and data fetching are handled through the Spotify Web API.
+A web application, modeled after Spotify's profile interface, for visualizing your spotify data. It uses Next.js v15+ (App Router), TypeScript, Tailwind CSS, and shadcn/ui. OAuth and data fetching are handled through the Spotify Web API.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ A web application for viewing and analyzing your Spotify data. It uses Next.js v
 
 ## Overview
 
-Spotify Profile is a Next.js application that displays a user’s top artists, top tracks, recently played tracks, playlists, and other profile-related data using the Spotify Web API. It authenticates via OAuth, stores tokens in HTTP-only cookies, and renders user data via React Server/Client Components.
+My Spotify Profile is a Next.js application that displays a user’s top artists, top tracks, recently played tracks, playlists, and other profile-related data using the Spotify Web API. It authenticates via OAuth, stores tokens in HTTP-only cookies, and renders user data via React Server/Client Components.
 
 Features currently include:
 
