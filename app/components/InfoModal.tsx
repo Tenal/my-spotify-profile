@@ -29,7 +29,7 @@ export function InfoModal() {
                             <li className="list-none sm:list-disc">
                                 Source code can be found on{" "}
                                 <a
-                                    href="https://github.com/my-repo"
+                                    href="https://github.com/Tenal/my-spotify-profile.git"
                                     className="text-green-500 hover:underline"
                                     target="_blank"
                                     rel="noopener noreferrer"

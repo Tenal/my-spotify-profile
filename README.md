@@ -33,7 +33,7 @@ Features currently include:
 ## Project Structure
 
 ```
-spotify-profile
+my-spotify-profile
 ├── app/
 │   ├── api/
 │   │   └── auth/
