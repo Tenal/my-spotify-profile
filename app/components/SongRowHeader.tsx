@@ -27,7 +27,7 @@ export function SongRowHeader() {
                         <TooltipTrigger asChild>
                             <Clock className="max-w-[18px]" />
                         </TooltipTrigger>
-                        <TooltipContent className="bg-[hsl(var(--popover))] text-[hsl(var(--popover-foreground))] border-none">
+                        <TooltipContent className="bg-[hsl(var(--popover))] text-[hsl(var(--popover-foreground))] border-0">
                             Duration
                         </TooltipContent>
                     </Tooltip>

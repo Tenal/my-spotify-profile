@@ -21,11 +21,11 @@ export function Loader() {
             `}</style>
 
             <div className="flex justify-center items-end overflow-hidden w-[100px] min-w-[100px] h-[50px] m-auto relative z-[2]">
-                <Bar delay="250ms" />
-                <Bar delay="715ms" />
-                <Bar delay="475ms" />
-                <Bar delay="25ms" />
-                <Bar delay="190ms" />
+                <Bar delay="230ms" />
+                <Bar delay="575ms" />
+                <Bar delay="395ms" />
+                <Bar delay="5ms" />
+                <Bar delay="170ms" />
             </div>
         </div>
     )
@@ -36,7 +36,7 @@ const Bar = ({ delay = "0ms" }: IBarProps) => (
         className="w-[10px] h-[5px] mx-[2px] bg-[hsl(var(--background-hover-extralight))]"
         style={{
             animationName: "dance",
-            animationDuration: "400ms",
+            animationDuration: "300ms",
             animationDelay: delay,
             animationIterationCount: "infinite",
             animationDirection: "alternate",

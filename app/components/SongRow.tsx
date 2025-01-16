@@ -89,7 +89,7 @@ export function SongRow({
                                 />
                             </a>
                         </TooltipTrigger>
-                        <TooltipContent className="z-50 bg-[hsl(var(--popover))] text-[hsl(var(--popover-foreground))] border-none">
+                        <TooltipContent className="z-50 bg-[hsl(var(--popover))] text-[hsl(var(--popover-foreground))] border-0">
                             Play {name} on Spotify
                         </TooltipContent>
                     </Tooltip>

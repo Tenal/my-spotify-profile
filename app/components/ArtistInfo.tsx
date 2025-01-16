@@ -61,17 +61,7 @@ export function ArtistInfo({ artist }: IArtistInfoProps) {
                                             <Mic2 className="w-6 h-6 text-black" />
                                         </div>
                                     </TooltipTrigger>
-                                    <TooltipContent
-                                        className="
-                                            data-[state=closed]:fade-out
-                                            data-[state=closed]:duration-300
-                                            data-[state=open]:fade-in
-                                            data-[state=open]:duration-300
-                                            bg-[hsl(var(--popover))]
-                                            text-[hsl(var(--popover-foreground))]
-                                            border-0
-                                        "
-                                    >
+                                    <TooltipContent className="bg-[hsl(var(--popover))] text-[hsl(var(--popover-foreground))] border-0">
                                         Artist
                                     </TooltipContent>
                                 </Tooltip>

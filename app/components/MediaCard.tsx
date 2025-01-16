@@ -117,17 +117,7 @@ export function MediaCard({
                                 </svg>
                             </a>
                         </TooltipTrigger>
-                        <TooltipContent
-                            className="
-                                data-[state=closed]:fade-out
-                                data-[state=closed]:duration-300
-                                data-[state=open]:fade-in
-                                data-[state=open]:duration-300
-                                bg-[hsl(var(--popover))]
-                                text-[hsl(var(--popover-foreground))]
-                                border-0
-                            "
-                        >
+                        <TooltipContent className="bg-[hsl(var(--popover))] text-[hsl(var(--popover-foreground))] border-0">
                             Play {name} on Spotify
                         </TooltipContent>
                     </Tooltip>
