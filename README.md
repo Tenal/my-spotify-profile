@@ -2,6 +2,16 @@
 
 A web application, modeled after Spotify's profile interface, for visualizing your spotify data. It uses Next.js v15+ (App Router), TypeScript, Tailwind CSS, and shadcn/ui. OAuth and data fetching are handled through the Spotify Web API.
 
+
+Desktop View                                                                              | Mobile View
+:----------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:
+![image](https://github.com/user-attachments/assets/d0c4714a-6d02-4407-9e1e-a60a1761d70c) | ![image](https://github.com/user-attachments/assets/45756e41-7d45-45e9-b299-09d28c42d87d)
+![image](https://github.com/user-attachments/assets/cbf8bcb3-ac5f-4934-b33d-239bac8e0534) | ![image](https://github.com/user-attachments/assets/c2f91603-a823-4534-8fba-0849143dfcab)
+![image](https://github.com/user-attachments/assets/12a2ddce-9f74-41b0-8a28-e8d505fb0dec) | ![image](https://github.com/user-attachments/assets/4248c4db-9f68-4850-960e-86d270aa8cc2)
+![image](https://github.com/user-attachments/assets/addeb6dd-3c27-4e24-8b4f-0d1c88c6be2a) | ![image](https://github.com/user-attachments/assets/4067f4b1-9674-478a-93eb-583165fae3df)
+
+
+
 ## Table of Contents
 
 -   [Overview](#overview)
