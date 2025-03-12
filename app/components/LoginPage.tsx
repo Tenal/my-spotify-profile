@@ -16,7 +16,14 @@ export function LoginPage() {
                 need to manually grant access to your account. Without this, the
                 My Spotify Profile app won&apos;t display any of your data.
                 I&apos;m happy to grant access to anyone who wants access, just
-                send your name & email to tenalbourchier@gmail.com!
+                send your name & email to{" "}
+                <Link
+                    href="mailto:tenalbourchier@gmail.com"
+                    className="text-[hsl(var(--accent))] hover:underline"
+                >
+                    tenalbourchier@gmail.com
+                </Link>
+                !
             </p>
             <Link href="/api/auth/login">
                 <button className="px-8 py-3 bg-[hsl(var(--accent))] text-[hsl(var(--background-active))] uppercase font-medium tracking-wide rounded-full hover:bg-[hsl(var(--accent-hover))] hover:scale-105 transition-all duration-200">
